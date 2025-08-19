@@ -7,16 +7,13 @@ namespace Blog_MVC.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private  List<Postagem> postagens;
+    private   List<Categoria> categorias;
 
     public HomeController(ILogger<HomeController> logger)
     {
         _logger = logger;
-    }
-
-    public IActionResult Index()
-    {
-        // Criar objetos
-        List<Categoria> categorias = [
+        categorias = [
             new() { Id = 1, Nome = "Mundo" },
             new() { Id = 2, Nome = "Brasil" },
             new() { Id = 3, Nome = "Tecnologia" },
@@ -30,8 +27,7 @@ public class HomeController : Controller
             new() { Id = 11, Nome = "Estilo" },
             new() { Id = 12, Nome = "Viagens" }
         ];
-
-        List<Postagem> postagens = [
+       postagens = [
             new() {
                 Id = 1,
                 Nome = "Crise humanitária cresce em zonas de conflito no Oriente Médio",
@@ -165,12 +161,23 @@ public class HomeController : Controller
                 Foto = "/img/12.jpg"
             }
         ];
+    }
+
+    public IActionResult Index()
+    {
+        // Criar objetos
+   
         return View(postagens);
     }
 
-    public IActionResult Postagem()
+    public IActionResult Postagem(int id)
     {
-        return View();
+        var postagem = postagens
+            .Where(p => p.Id == id)
+            .SingleOrDefault();
+        if (postagem == null)
+            return NotFound();
+        return View(postagem);
     }
 
     public IActionResult Privacy()
