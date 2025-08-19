@@ -177,6 +177,7 @@ public class HomeController : Controller
             .SingleOrDefault();
         if (postagem == null)
             return NotFound();
+            ViewData["Categorias"] = categorias;
         return View(postagem);
     }
 

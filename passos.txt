@@ -10,5 +10,5 @@ dotnet new mvc -o Blog-MVC
 
 Executar o projeto
 cd Blog-MVC
-dotnet watch run h
+dotnet watch run 
 
